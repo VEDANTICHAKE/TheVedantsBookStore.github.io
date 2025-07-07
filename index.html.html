@@ -1,0 +1,2467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+ 
+ <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookVerse - Affiliate Book Store</title>
+
+  <!-- 💡 Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- ✅ Main CSS -->
+  <style>
+    /* 🔧 Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #fffefc, #f0f0f0);
+      color: #1a1a1a;
+    }
+
+    /* 🌌 NAVBAR */
+    .navbar {
+      background: linear-gradient(to right, #141e30, #243b55); /* Dark blue gradient */
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 22px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .logo-icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+      background: #00ffff33;
+    }
+
+    /* 📱 Responsive Navbar */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+      }
+    }
+
+    /* 🧪 Just for now: Sample section to see result */
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      color: #1e3a8a;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+
+/* ✅ Category Buttons Container */
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;               /* Allow wrapping on smaller screens */
+  gap: 0.75rem;                  /* Space between buttons */
+  justify-content: center;      /* Center the buttons */
+  padding: 1.5rem 1rem;          /* Spacing around buttons */
+  background-color: #f5f7fa;     /* Light background */
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+/* ✅ Individual Button Styling */
+.category-buttons button {
+  background-color: #e0e7ff;     /* Soft indigo shade */
+  color: #1e3a8a;                /* Deep blue text */
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;          /* Fully rounded pills */
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* ✅ Hover Effect */
+.category-buttons button:hover {
+  background-color: #1e3a8a;
+  color: white;
+  transform: scale(1.05);       /* Slight pop on hover */
+}
+
+/* ✅ Active State Button */
+.category-buttons button.active {
+  background-color: #1e3a8a;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Soft glow */
+}
+
+/* ✅ Responsive Adjustment for Small Screens */
+@media (max-width: 600px) {
+  .category-buttons {
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
+  }
+
+  .category-buttons button {
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+  }
+}
+
+
+
+
+/* 🔹 Section Heading */
+.section-heading {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #1e3a8a;
+  position: relative;
+}
+
+.section-heading::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #007bff;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+/* 🔹 Book Grid Container */
+.book-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  justify-content: center;
+}
+
+/* 🔹 Individual Book Card */
+.book {
+  width: 100%;
+  max-width: 220px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book:hover {
+  transform: translateY(-4px);
+}
+
+/* 🔹 Image Container */
+.book-image-box {
+  background: #f0f2f5;
+  height: 220px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 🔹 Book Info Text */
+.book h3,
+.book p,
+.book .price,
+.book a {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.book p {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 0.3rem;
+}
+
+.book .price {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #1e3a8a;
+  margin-bottom: 0.4rem;
+}
+
+.book a {
+  display: inline-block;
+  background: #1e3a8a;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+/* 🔹 Category Badge */
+.badge {
+  display: inline-block;
+  background-color: #1e3a8a;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin: 8px auto;
+  text-align: center;
+}
+
+
+/* ✅ For smaller screens — 2 books per row */
+@media (max-width: 600px) {
+  .book-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .book {
+    width: 100%;
+    max-width: 160px;
+    margin: 0 auto;
+    padding: 0.8rem;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .book-image-box {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    background: #f0f2f5;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .book-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .book h3,
+  .book p,
+  .price {
+    font-size: 0.85rem;
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  .book a {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    text-align: center;
+    display: block;
+    margin: 0.5rem auto 0;
+  }
+}
+
+
+/* Center the heading */
+#authors {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Section title styling */
+#authors {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.section-heading {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #1e3a8a;
+  position: relative;
+}
+
+.section-heading::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #007bff;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+/* Make the author list scrollable horizontally */
+.author-list {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;                      /* ✅ Horizontal scroll */
+  white-space: nowrap;                  /* ✅ Prevent wrap */
+  padding: 1rem 0.5rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Optional: hide scrollbar on WebKit browsers */
+.author-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* Each author image block */
+.author {
+  flex: 0 0 auto;                        /* ✅ Prevent shrinking */
+  text-align: center;
+  scroll-snap-align: start;
+}
+
+/* Author image styling */
+.author-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.author-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.author-name {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color:  #1e3a8a;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+}
+
+.author:hover .author-name {
+  color: #1e3a8a;
+  text-decoration: underline;
+  transition: 0.3s;
+}
+
+/* Search Bar Styling */
+.search-bar {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 0 1rem;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  max-width: 500px;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.search-bar input:focus {
+  border-color: #1e3a8a;
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.2);
+}
+
+#search-suggestions {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 500px;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+#search-suggestions li {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  border-top: 1px solid #f0f0f0;
+}
+
+#search-suggestions li:hover {
+  background-color: #f3f4f6;
+}
+
+#search-suggestions mark {
+  background-color: yellow;
+  color: #000;
+  font-weight: bold;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
+
+/* Contact Section Styling */
+.contact-section {
+  text-align: center;
+  background-color: #1e3a8a;
+  color: white;
+  padding: 3rem 1rem;
+  margin-top: 3rem;
+}
+
+.contact-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-section p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.contact-links a {
+  background: white;
+  color: #1e3a8a;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.contact-links a:hover {
+  background-color: #3f51b5;
+  color: white;
+}
+
+/* Post Section Styling */
+.posts-section {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.posts-section h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #1e3a8a;
+}
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.post {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.post:hover {
+  transform: translateY(-5px);
+}
+
+.post img {
+  width: 100%;
+  max-width: 260px;   /* ⬆️ Increased from 220px */
+  height: 170px;      /* ⬆️ Increased from 150px */
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0 auto 1rem;
+  display: block;
+}
+.post h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.post p {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+
+/* Summary Section Styling */
+.summary-section {
+  padding: 3rem 1rem;
+  background: #fffefc, #f0f0f0;
+  text-align: center;
+}
+
+.summary-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.summary-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  max-width: 220px;          /* ✅ Match book card size */
+  width: 100%;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+}
+
+.summary-card img {
+  width: 100%;
+   aspect-ratio: 16 / 9;            
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.summary-card h3 {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+.summary-card p {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+
+#backToTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 99;
+  background-color: #1e3a8a;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  font-size: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  display: none; /* Hidden by default */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#backToTop:hover {
+  background-color: #102773;
+  transform: scale(1.1);
+}
+
+  </style>
+</head>
+
+<body>
+
+
+  <!-- 🌐 Header Navigation Bar -->
+   <header>
+    <div class="navbar">
+      <div class="logo">📚TheVedantsBookStore</div><br>
+      <nav class="nav-links">
+        <li><a href="#">Home</a></li>
+      <li><a href="#books-section">Books</a></li>
+        <li><a href="#category-section">Category</a></li>
+    <li><a href="#pdf">Free PDFs</a></li>
+      <li><a href="#posts">Posts</a></li>
+       <li><a href="#book-summaries">Summaries</a></li>
+         <li><a href="#About The Founder">About The Founder</a></li>
+         <li><a href="#contact">Contact</a></li>
+      
+      </nav>
+    </div>
+  </header>
+
+ <!-- Categories -->
+<section id="category-section"> <div class="category-buttons">
+  <button data-category="all">All</button>
+  <button data-category="fiction">Fiction</button>
+  <button data-category="finance">Finance</button>
+  <button data-category="self-help">Self-Help</button>
+  <button data-category="biography">Biography</button>
+  <button data-category="science">Science</button>
+  <button data-category="romance">Romance</button>
+  <button data-category="thriller">Thriller</button>
+  <button data-category="children">Children</button>
+  <button data-category="personal-growth">Personal Growth</button>
+  <button data-category="productivity">Productivity</button>
+  <button data-category="leadership">Leadership</button>
+  <button data-category="mindset">Mindset</button>
+  <button data-category="time-management">Time Management</button>
+  <button data-category="career">Career</button>
+  <button data-category="success">Success</button>
+  <button data-category="communication">Communication</button>
+<button data-category="trading">Trading</button>
+  <!-- Add more buttons as needed -->
+</div><br>
+
+
+<section id="authors"> 
+<h2 class="section-heading">Meet the Authors</h2>
+
+<div class="author-list">
+<div class="author">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Robert_Kiyosaki_by_Gage_Skidmore_2.jpg/1200px-Robert_Kiyosaki_by_Gage_Skidmore_2.jpg" alt="Robert Kiyosaki" class="author-img" data-author="robert-kiyosaki">
+  <p class="author-name">Robert Kiyosaki</p>
+</div>
+
+<div class="author">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Mark-manson-headshot-2018-1.jpg/500px-Mark-manson-headshot-2018-1.jpg" alt="Mark Manson" class="author-img" data-author="mark-manson">
+  <p class="author-name">Mark Manson</p>
+</div>
+
+<div class="author">
+  <img src="https://brenebrown.com/wp-content/uploads/2021/11/DTL_JamesClear_Arapawa_Dark.jpg" alt="James Clear" class="author-img" data-author="james-clear">
+  <p class="author-name">James Clear</p>
+</div>
+
+<div class="author">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9C5y0QCTyUwsqdtL8c_XdY61ibT0eaB1y7g&s" alt="Robin Sharma" class="author-img" data-author="robin-sharma">
+  <p class="author-name">Robin Sharma</p>
+</div>
+
+<div class="author">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Napoleon_Hill_headshot.jpg/640px-Napoleon_Hill_headshot.jpg" alt="Napoleon Hill" class="author-img" data-author="napoleon-hill">
+  <p class="author-name">Napoleon Hill</p>
+</div>
+
+<div class="author">
+  <img src="https://m.media-amazon.com/images/S/amzn-author-media-prod/rtoaal9u1721n93pmiqkl7s1u1.jpg" alt="Morgan Housel" class="author-img" data-author="morgan-housel">
+  <p class="author-name">Morgan Housel</p>
+</div>
+
+<div class="author">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Stephen_Covey_174-CD-L05-03-02A-002_%28cropped%29.jpg" alt="Stephen Covey" class="author-img" data-author="stephen-covey">
+  <p class="author-name">Stephen Covey</p>
+</div>
+
+<div class="author">
+  <img src="https://s3.amazonaws.com/media.briantracy.com/about/brian-about.jpg" alt="Brian Tracy" class="author-img" data-author="brian-tracy">
+  <p class="author-name">Brian Tracy</p>
+</div>
+
+<div class="author">
+  <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/Dale_Carnegie.jpg" alt="Dale Carnegie" class="author-img" data-author="dale-carnegie">
+  <p class="author-name">Dale Carnegie</p>
+</div>
+
+<div class="author">
+  <img src="https://m.media-amazon.com/images/S/amzn-author-media-prod/dg2hj6m7c66j07csmoi0airsd._SY450_CR0%2C0%2C450%2C450_.jpg" alt="Colleen Hoover" class="author-img" data-author="colleen-hoover">
+  <p class="author-name">Colleen Hoover</p>
+</div>
+
+
+
+  <button id="show-all">📚 Show All Books</button>
+</section>
+
+
+<!-- ========== Search Section ========== -->
+<section class="search-bar">
+  <input type="text" id="book-search" placeholder="🔍 Search books by title or author...">
+  <ul id="search-suggestions"></ul>
+</section><br>
+
+
+<!-- 📚 Books Section -->
+<section id="books-section">
+  <h2 class="section-heading">Books</h2>
+
+  <div class="book-container">
+    <!-- 🔹 Book Card -->
+    
+<div class="book" data-author="james-clear" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81F90H7hnML._SY522_.jpg" alt="Atomic Habits">
+  </div>
+  <div class="badge">Self-Help</div> <!-- 🔹 Category badge -->
+  <h3>Atomic Habits</h3>
+  <p>By James Clear</p>
+  <div class="price">₹499</div>
+  <a href="https://amzn.to/3uWqGZD" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="robert-kiyosaki" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81bsw6fnUiL._SY522_.jpg" alt="Rich Dad Poor Dad">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>Rich Dad Poor Dad</h3>
+  <p>By Robert T. Kiyosaki</p>
+  <div class="price">₹399</div>
+  <a href="https://amzn.to/3VRxVKf" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="paulo-coelho" data-category="fiction" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71aFt4+OTOL._SY522_.jpg" alt="The Alchemist">
+  </div>
+  <div class="badge">Fiction</div>
+  <h3>The Alchemist</h3>
+  <p>By Paulo Coelho</p>
+  <div class="price">₹299</div>
+  <a href="https://amzn.to/4bTskFf" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="eckhart-tolle" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61Ij8nLooNL._SY522_.jpg" alt="The Power of Now">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>The Power of Now</h3>
+  <p>By Eckhart Tolle</p>
+  <div class="price">₹359</div>
+  <a href="https://amzn.to/3RKwlZH" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="morgan-housel" data-category="finance"data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71g2ednj0JL._SY522_.jpg" alt="The Psychology of Money">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>The Psychology of Money</h3>
+  <p>By Morgan Housel</p>
+  <div class="price">₹389</div>
+  <a href="https://amzn.to/3QXobVX" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="harper-lee" data-category="fiction" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81gepf1eMqL._UF1000,1000_QL80_.jpg" alt="To Kill a Mockingbird">
+  </div>
+  <div class="badge">Fiction</div>
+  <h3>To Kill a Mockingbird</h3>
+  <p>By Harper Lee</p>
+  <div class="price">₹349</div>
+  <a href="https://amzn.to/3zgvQXE" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="stephen-covey" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71rmHeQeuRL._UF1000,1000_QL80_.jpg" alt="The 7 Habits of Highly Effective People">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>The 7 Habits of Highly Effective People</h3>
+  <p>By Stephen R. Covey</p>
+  <div class="price">₹529</div>
+  <a href="https://amzn.to/3z4Xj3x" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="benjamin-graham" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/91L0La1pwDL._UF1000,1000_QL80_.jpg" alt="The Intelligent Investor">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>The Intelligent Investor</h3>
+  <p>By Benjamin Graham</p>
+  <div class="price">₹599</div>
+  <a href="https://amzn.to/3VGhgyA" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="george-orwell" data-category="fiction" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71kxa1-0mfL._SY522_.jpg" alt="1984">
+  </div>
+  <div class="badge">Fiction</div>
+  <h3>1984</h3>
+  <p>By George Orwell</p>
+  <div class="price">₹279</div>
+  <a href="https://amzn.to/4cpL5Ei" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="mark-manson" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71QKQ9mwV7L._SY522_.jpg" alt="The Subtle Art of Not Giving a F*ck">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>The Subtle Art of Not Giving a F*ck</h3>
+  <p>By Mark Manson</p>
+  <div class="price">₹399</div>
+  <a href="https://amzn.to/3RlJSX7" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="napoleon-hill" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71UypkUjStL._SY522_.jpg" alt="Think and Grow Rich">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>Think and Grow Rich</h3>
+  <p>By Napoleon Hill</p>
+  <div class="price">₹349</div>
+  <a href="https://amzn.to/3z9pDwd" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="f-scott-fitzgerald" data-category="fiction" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81TLiZrasVL._UF1000,1000_QL80_.jpg" alt="The Great Gatsby">
+  </div>
+  <div class="badge">Fiction</div>
+  <h3>The Great Gatsby</h3>
+  <p>By F. Scott Fitzgerald</p>
+  <div class="price">₹289</div>
+  <a href="https://amzn.to/3RK7Y0V" target="_blank">Buy Now</a>
+</div>
+
+
+<div class="book" data-author="thomas-stanley" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81Bte4GAYtL._UF1000,1000_QL80_.jpg" alt="The Millionaire Next Door">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>The Millionaire Next Door</h3>
+  <p>By Thomas J. Stanley</p>
+  <div class="price">₹429</div>
+  <a href="https://amzn.to/3RVp5xO" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="markus-zusak" data-category="fiction" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/91ndEtx1uWL._UF1000,1000_QL80_.jpg" alt="The Book Thief">
+  </div>
+  <div class="badge">Fiction</div>
+  <h3>The Book Thief</h3>
+  <p>By Markus Zusak</p>
+  <div class="price">₹399</div>
+  <a href="https://amzn.to/3zyLtpi" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="tony-robbins" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71YxsXL5wjL._UF1000,1000_QL80_.jpg" alt="Awaken the Giant Within">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>Awaken the Giant Within</h3>
+  <p>By Tony Robbins</p>
+  <div class="price">₹599</div>
+  <a href="https://amzn.to/4bt0OAI" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="ramit-sethi" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81c9SSbG3OL.jpg" alt="I Will Teach You to Be Rich">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>I Will Teach You to Be Rich</h3>
+  <p>By Ramit Sethi</p>
+  <div class="price">₹499</div>
+  <a href="https://amzn.to/3RXXoQs" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="matt-haig" data-category="fiction" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81J6APjwxlL.jpg" alt="The Midnight Library">
+  </div>
+  <div class="badge">Fiction</div>
+  <h3>The Midnight Library</h3>
+  <p>By Matt Haig</p>
+  <div class="price">₹379</div>
+  <a href="https://amzn.to/3xWEBlF" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="don-miguel-ruiz" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/913A1+rl-gL._UF1000,1000_QL80_.jpg" alt="The Four Agreements">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>The Four Agreements</h3>
+  <p>By Don Miguel Ruiz</p>
+  <div class="price">₹299</div>
+  <a href="https://amzn.to/3z72yW7" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="philip-fisher" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61tzuAYGKqL.jpg" alt="Common Stocks and Uncommon Profits">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>Common Stocks and Uncommon Profits</h3>
+  <p>By Philip Fisher</p>
+  <div class="price">₹455</div>
+  <a href="https://amzn.to/4bPnMkg" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="jd-salinger" data-category="fiction" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/8125BDk3l9L.jpg" alt="The Catcher in the Rye">
+  </div>
+  <div class="badge">Fiction</div>
+  <h3>The Catcher in the Rye</h3>
+  <p>By J.D. Salinger</p>
+  <div class="price">₹299</div>
+  <a href="https://amzn.to/3VkS0dc" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="david-goggins" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81YJFNc54lL._UF1000,1000_QL80_.jpg" alt="Can't Hurt Me">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>Can't Hurt Me</h3>
+  <p>By David Goggins</p>
+  <div class="price">₹449</div>
+  <a href="https://amzn.to/3z8IBV5" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="ray-dalio" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61suprU8a5L._UF1000,1000_QL80_.jpg" alt="Principles: Life and Work">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>Principles: Life and Work</h3>
+  <p>By Ray Dalio</p>
+  <div class="price">₹749</div>
+  <a href="https://amzn.to/3yWnZXQ" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="colleen-hoover" data-category="fiction" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81s0B6NYXML._SY522_.jpg" alt="It Ends with Us">
+  </div>
+  <div class="badge">Fiction</div>
+  <h3>It Ends with Us</h3>
+  <p>By Colleen Hoover</p>
+  <div class="price">₹349</div>
+  <a href="https://amzn.to/4cpxcE1" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="hal-elrod" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61S-xKd5dqL._UF1000,1000_QL80_.jpg" alt="The Miracle Morning">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>The Miracle Morning</h3>
+  <p>By Hal Elrod</p>
+  <div class="price">₹329</div>
+  <a href="https://amzn.to/3Rlr8BG" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="john-bogle" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81vPxCvGMcL._AC_UF1000,1000_QL80_.jpg" alt="The Little Book of Common Sense Investing">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>The Little Book of Common Sense Investing</h3>
+  <p>By John C. Bogle</p>
+  <div class="price">₹379</div>
+  <a href="https://amzn.to/3RZrWgZ" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="alex-michaelides" data-category="fiction" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81JJPDNlxSL._UF1000,1000_QL80_.jpg" alt="The Silent Patient">
+  </div>
+  <div class="badge">Fiction</div>
+  <h3>The Silent Patient</h3>
+  <p>By Alex Michaelides</p>
+  <div class="price">₹399</div>
+  <a href="https://amzn.to/4c2UjHr" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="william-mcraven" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/710b2STZwOL.jpg" alt="Make Your Bed">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>Make Your Bed</h3>
+  <p>By Admiral William H. McRaven</p>
+  <div class="price">₹269</div>
+  <a href="https://amzn.to/3VQoMCF" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="tony-robbins" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71fUpJ2S30L.jpg" alt="Unshakeable">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>Unshakeable</h3>
+  <p>By Tony Robbins</p>
+  <div class="price">₹369</div>
+  <a href="https://amzn.to/3VHiX8W" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="colleen-hoover" data-category="fiction" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/91868k2+gUL.jpg" alt="Verity">
+  </div>
+  <div class="badge">Fiction</div>
+  <h3>Verity</h3>
+  <p>By Colleen Hoover</p>
+  <div class="price">₹299</div>
+  <a href="https://amzn.to/3zgsQMQ" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="jen-sincero" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71SUujKRkdL.jpg" alt="You Are a Badass">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>You Are a Badass</h3>
+  <p>By Jen Sincero</p>
+  <div class="price">₹375</div>
+  <a href="https://amzn.to/3VkLNi8" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="brianna-wiest" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61xivWmExiL._UF1000,1000_QL80_.jpg" alt="The Mountain Is You">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>The Mountain Is You</h3>
+  <p>By Brianna Wiest</p>
+  <div class="price">₹389</div>
+  <a href="https://amzn.to/3Vi0uPP" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="dale-carnegie" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71vK0WVQ4rL.jpg" alt="How to Win Friends and Influence People">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>How to Win Friends and Influence People</h3>
+  <p>By Dale Carnegie</p>
+  <div class="price">₹399</div>
+  <a href="https://amzn.to/3xWS6Fb" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="cal-newport" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81JJ7fyyKyS.jpg" alt="Deep Work">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>Deep Work</h3>
+  <p>By Cal Newport</p>
+  <div class="price">₹529</div>
+  <a href="https://amzn.to/3QW3Nc9" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="angela-duckworth" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/91fmmjCP6FL._UF1000,1000_QL80_.jpg" alt="Grit">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>Grit</h3>
+  <p>By Angela Duckworth</p>
+  <div class="price">₹479</div>
+  <a href="https://amzn.to/3VKfjDF" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="carol-dweck" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61Ejz9nPX0L._UF1000,1000_QL80_.jpg" alt="Mindset">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>Mindset</h3>
+  <p>By Carol S. Dweck</p>
+  <div class="price">₹409</div>
+  <a href="https://amzn.to/3RmhBAK" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="david-schwartz" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81UZJqFG7VL.jpg" alt="The Magic of Thinking Big">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>The Magic of Thinking Big</h3>
+  <p>By David J. Schwartz</p>
+  <div class="price">₹349</div>
+  <a href="https://amzn.to/3RQgxUC" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="james-allen" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71zlhHlWOzL.jpg" alt="As a Man Thinketh">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>As a Man Thinketh</h3>
+  <p>By James Allen</p>
+  <div class="price">₹199</div>
+  <a href="https://amzn.to/3xVbIzE" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="spencer-johnson" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71vfjx-h4wL.jpg" alt="Who Moved My Cheese?">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>Who Moved My Cheese?</h3>
+  <p>By Spencer Johnson</p>
+  <div class="price">₹285</div>
+  <a href="https://amzn.to/3ViAbU5" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="robin-sharma" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/712VrOZ60zL.jpg" alt="The 5 AM Club">
+  </div>
+  <div class="badge">Self Help</div>
+  <h3>The 5 AM Club</h3>
+  <p>By Robin Sharma</p>
+  <div class="price">₹415</div>
+  <a href="https://amzn.to/3RQXvV0" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="walter-isaacson" data-category="biography" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81NSb9Jy0HL.jpg" alt="Steve Jobs">
+  </div>
+  <div class="badge">Biography</div>
+  <h3>Steve Jobs</h3>
+  <p>By Walter Isaacson</p>
+  <div class="price">₹499</div>
+  <a href="https://amzn.to/4cvzZzY" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="stephen-hawking" data-category="science" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81DBK93b6jL.jpg" alt="A Brief History of Time">
+  </div>
+  <div class="badge">Science</div>
+  <h3>A Brief History of Time</h3>
+  <p>By Stephen Hawking</p>
+  <div class="price">₹389</div>
+  <a href="https://amzn.to/3VXwrWi" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="colleen-hoover" data-category="romance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71PNGYHykrL._SY522_.jpg" alt="It Starts with Us">
+  </div>
+  <div class="badge">Romance</div>
+  <h3>It Starts with Us</h3>
+  <p>By Colleen Hoover</p>
+  <div class="price">₹349</div>
+  <a href="https://amzn.to/3VZomjG" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="stieg-larsson" data-category="thriller" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81YW99XIpJL._UF1000,1000_QL80_.jpg" alt="The Girl with the Dragon Tattoo">
+  </div>
+  <div class="badge">Thriller</div>
+  <h3>The Girl with the Dragon Tattoo</h3>
+  <p>By Stieg Larsson</p>
+  <div class="price">₹379</div>
+  <a href="https://amzn.to/3zqCDJg" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="eric-carle" data-category="children" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://rukminim2.flixcart.com/image/750/900/kixgtjk0-0/book/4/c/6/the-very-hungry-caterpillar-s-favorite-words-original-imafym9erzsq6stu.jpeg?q=90&crop=false" alt="The Very Hungry Caterpillar">
+  </div>
+  <div class="badge">Children</div>
+  <h3>The Very Hungry Caterpillar</h3>
+  <p>By Eric Carle</p>
+  <div class="price">₹299</div>
+  <a href="https://amzn.to/3VXKfdz" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="michelle-obama" data-category="biography" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81h2gWPTYJL._SY522_.jpg" alt="Becoming">
+  </div>
+  <div class="badge">Biography</div>
+  <h3>Becoming</h3>
+  <p>By Michelle Obama</p>
+  <div class="price">₹499</div>
+  <a href="https://amzn.to/3RZpo8j" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="yuval-noah-harari" data-category="science" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/713jIoMO3UL._SY522_.jpg" alt="Sapiens: A Brief History of Humankind">
+  </div>
+  <div class="badge">Science</div>
+  <h3>Sapiens: A Brief History of Humankind</h3>
+  <p>By Yuval Noah Harari</p>
+  <div class="price">₹429</div>
+  <a href="https://amzn.to/4cyRwue" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="ali-hazelwood" data-category="romance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81plBFoPgtL._UF1000,1000_QL80_.jpg" alt="The Love Hypothesis">
+  </div>
+  <div class="badge">Romance</div>
+  <h3>The Love Hypothesis</h3>
+  <p>By Ali Hazelwood</p>
+  <div class="price">₹359</div>
+  <a href="https://amzn.to/3VLWaZZ" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="gillian-flynn" data-category="thriller" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71+khXHbe5L._UF1000,1000_QL80_.jpg" alt="Gone Girl">
+  </div>
+  <div class="badge">Thriller</div>
+  <h3>Gone Girl</h3>
+  <p>By Gillian Flynn</p>
+  <div class="price">₹385</div>
+  <a href="https://amzn.to/3VKrShy" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="dr-seuss" data-category="children" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71g-M7Np0sL._UF1000,1000_QL80_.jpg" alt="Oh, the Places You'll Go!">
+  </div>
+  <div class="badge">Children</div>
+  <h3>Oh, the Places You'll Go!</h3>
+  <p>By Dr. Seuss</p>
+  <div class="price">₹279</div>
+  <a href="https://amzn.to/3RJQGDE" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="nelson-mandela" data-category="biography" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/91jMa+ndqrL.jpg" alt="Long Walk to Freedom">
+  </div>
+  <div class="badge">Biography</div>
+  <h3>Long Walk to Freedom</h3>
+  <p>By Nelson Mandela</p>
+  <div class="price">₹489</div>
+  <a href="https://amzn.to/4bVKr0B" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="carl-sagan" data-category="science" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/614kchjRC4L._UF1000,1000_QL80_.jpg" alt="Cosmos">
+  </div>
+  <div class="badge">Science</div>
+  <h3>Cosmos</h3>
+  <p>By Carl Sagan</p>
+  <div class="price">₹499</div>
+  <a href="https://amzn.to/4cs9cZ9" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="jojo-moyes" data-category="romance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81M1HpsyLzL._UF1000,1000_QL80_.jpg" alt="Me Before You">
+  </div>
+  <div class="badge">Romance</div>
+  <h3>Me Before You</h3>
+  <p>By Jojo Moyes</p>
+  <div class="price">₹375</div>
+  <a href="https://amzn.to/4bMGUrD" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="dan-brown" data-category="thriller" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71y4X5150dL.jpg" alt="The Da Vinci Code">
+  </div>
+  <div class="badge">Thriller</div>
+  <h3>The Da Vinci Code</h3>
+  <p>By Dan Brown</p>
+  <div class="price">₹359</div>
+  <a href="https://amzn.to/3zUigZJ" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="margaret-brown" data-category="children" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71d0-p3THfL.jpg" alt="Goodnight Moon">
+  </div>
+  <div class="badge">Children</div>
+  <h3>Goodnight Moon</h3>
+  <p>By Margaret Wise Brown</p>
+  <div class="price">₹249</div>
+  <a href="https://amzn.to/3VSnXnP" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="tara-westover" data-category="biography" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81WojUxbbFL._SY522_.jpg" alt="Educated">
+  </div>
+  <div class="badge">Biography</div>
+  <h3>Educated</h3>
+  <p>By Tara Westover</p>
+  <div class="price">₹415</div>
+  <a href="https://amzn.to/3VS1Bg0" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="neil-tyson" data-category="science" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/914EiU2QImL.jpg" alt="Astrophysics for People in a Hurry">
+  </div>
+  <div class="badge">Science</div>
+  <h3>Astrophysics for People in a Hurry</h3>
+  <p>By Neil deGrasse Tyson</p>
+  <div class="price">₹319</div>
+  <a href="https://amzn.to/4bVjWdx" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="colleen-hoover" data-category="romance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71rdsaOMvVL._UF1000,1000_QL80_.jpg" alt="Reminders of Him">
+  </div>
+  <div class="badge">Romance</div>
+  <h3>Reminders of Him</h3>
+  <p>By Colleen Hoover</p>
+  <div class="price">₹329</div>
+  <a href="https://amzn.to/4bVdd9e" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="dean-koontz" data-category="thriller" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81ubZSVfDmL.jpg" alt="The Silent Corner">
+  </div>
+  <div class="badge">Thriller</div>
+  <h3>The Silent Corner</h3>
+  <p>By Dean Koontz</p>
+  <div class="price">₹369</div>
+  <a href="https://amzn.to/3zWykzH" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="dr-seuss" data-category="children" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71e4ln93HOL._UF1000,1000_QL80_.jpg" alt="Green Eggs and Ham">
+  </div>
+  <div class="badge">Children</div>
+  <h3>Green Eggs and Ham</h3>
+  <p>By Dr. Seuss</p>
+  <div class="price">₹259</div>
+  <a href="https://amzn.to/3RRkK1J" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="robin-sharma" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61opWdCu5IL.jpg" alt="Leadership Wisdom">
+  </div>
+  <div class="badge">Self-Help</div>
+  <h3>Leadership Wisdom</h3>
+  <p>By Robin Sharma</p>
+  <div class="price">₹359</div>
+  <a href="https://amzn.to/3RHT8aL" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="napoleon-hill" data-category="mindset" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/714I-O4fL9L._UF1000,1000_QL80_.jpg" alt="Success Through PMA">
+  </div>
+  <div class="badge">Mindset</div>
+  <h3>Success Through a PMA</h3>
+  <p>By Napoleon Hill</p>
+  <div class="price">₹319</div>
+  <a href="https://amzn.to/4crCTya" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="stephen-covey" data-category="personal-growth" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71w3w240A2L.jpg" alt="The 8th Habit">
+  </div>
+  <div class="badge">Personal Growth</div>
+  <h3>The 8th Habit</h3>
+  <p>By Stephen Covey</p>
+  <div class="price">₹449</div>
+  <a href="https://amzn.to/3RSZlMN" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="brian-tracy" data-category="productivity" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61zreqYkAtL.jpg" alt="No Excuses">
+  </div>
+  <div class="badge">Productivity</div>
+  <h3>No Excuses!</h3>
+  <p>By Brian Tracy</p>
+  <div class="price">₹289</div>
+  <a href="https://amzn.to/3RVc4Q3" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="dale-carnegie" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61E8vTEXGnL._UF1000,1000_QL80_.jpg" alt="Stop Worrying Start Living">
+  </div>
+  <div class="badge">Self-Help</div>
+  <h3>Stop Worrying & Start Living</h3>
+  <p>By Dale Carnegie</p>
+  <div class="price">₹315</div>
+  <a href="https://amzn.to/3VQrZNH" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="colleen-hoover" data-category="fiction" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71E8VNPC1dL.jpg" alt="Ugly Love">
+  </div>
+  <div class="badge">Fiction</div>
+  <h3>Ugly Love</h3>
+  <p>By Colleen Hoover</p>
+  <div class="price">₹399</div>
+  <a href="https://amzn.to/4cHy0ae" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="robert-kiyosaki" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81OQCkuEMtL._UF1000,1000_QL80_.jpg" alt="The Business of the 21st Century">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>The Business of the 21st Century</h3>
+  <p>By Robert Kiyosaki</p>
+  <div class="price">₹275</div>
+  <a href="https://amzn.to/3VsGH1z" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="mark-manson" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/718N0ji7n5L.jpg" alt="Everything is F*cked">
+  </div>
+  <div class="badge">Self-Help</div>
+  <h3>Everything is F*cked</h3>
+  <p>By Mark Manson</p>
+  <div class="price">₹369</div>
+  <a href="https://amzn.to/4bZySGe" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="robin-sharma" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71yu8CAKbgL.jpg" alt="Who Will Cry When You Die?">
+  </div>
+  <div class="badge">Self-Help</div>
+  <h3>Who Will Cry When You Die?</h3>
+  <p>By Robin Sharma</p>
+  <div class="price">₹199</div>
+  <a href="https://amzn.to/3VZqS6X" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="morgan-housel" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/616ayioUd6L._UF1000,1000_QL80_.jpg" alt="Same as Ever">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>Same as Ever</h3>
+  <p>By Morgan Housel</p>
+  <div class="price">₹399</div>
+  <a href="https://amzn.to/4bT2Pr0" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="stephen-covey" data-category="productivity" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71x3mY6p8FL._UF1000,1000_QL80_.jpg" alt="The 3rd Alternative">
+  </div>
+  <div class="badge">Productivity</div>
+  <h3>The 3rd Alternative</h3>
+  <p>By Stephen Covey</p>
+  <div class="price">₹489</div>
+  <a href="https://amzn.to/4bUFiyQ" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="brian-tracy" data-category="success" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61ZNAnIrwwL.jpg" alt="Eat That Frog!">
+  </div>
+  <div class="badge">Success</div>
+  <h3>Eat That Frog!</h3>
+  <p>By Brian Tracy</p>
+  <div class="price">₹299</div>
+  <a href="https://amzn.to/4bvY5iN" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="dale-carnegie" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61VWPMlnLWL._UF1000,1000_QL80_.jpg" alt="The Quick and Easy Way to Effective Speaking">
+  </div>
+  <div class="badge">Self-Help</div>
+  <h3>The Quick and Easy Way to Effective Speaking</h3>
+  <p>By Dale Carnegie</p>
+  <div class="price">₹249</div>
+  <a href="https://amzn.to/3Vl6olW" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="colleen-hoover" data-category="romance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/819GdrzJz8L.jpg" alt="November 9">
+  </div>
+  <div class="badge">Romance</div>
+  <h3>November 9</h3>
+  <p>By Colleen Hoover</p>
+  <div class="price">₹289</div>
+  <a href="https://amzn.to/4cBOICw" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="robert-kiyosaki" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71+Ik-wBiYL._UF1000,1000_QL80_.jpg" alt="Rich Kid Smart Kid">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>Rich Kid Smart Kid</h3>
+  <p>By Robert Kiyosaki</p>
+  <div class="price">₹329</div>
+  <a href="https://amzn.to/3xsBzFO" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="robin-sharma" data-category="leadership" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/716pKy6MpPL.jpg" alt="Daily Inspiration from the Monk">
+  </div>
+  <div class="badge">Leadership</div>
+  <h3>Daily Inspiration</h3>
+  <p>By Robin Sharma</p>
+  <div class="price">₹259</div>
+  <a href="https://amzn.to/3xkdr1W" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="napoleon-hill" data-category="mindset" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81V3mrjjWcL._UF1000,1000_QL80_.jpg" alt="Outwitting the Devil">
+  </div>
+  <div class="badge">Mindset</div>
+  <h3>Outwitting the Devil</h3>
+  <p>By Napoleon Hill</p>
+  <div class="price">₹379</div>
+  <a href="https://amzn.to/4bUKiX5" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="stephen-covey" data-category="leadership" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61nJPmOxaHL._UF350,350_QL50_.jpg" alt="Living the 7 Habits">
+  </div>
+  <div class="badge">Leadership</div>
+  <h3>Living the 7 Habits</h3>
+  <p>By Stephen Covey</p>
+  <div class="price">₹429</div>
+  <a href="https://amzn.to/3RC5pjY" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="brian-tracy" data-category="career" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61PuJBKw3UL._UF1000,1000_QL80_.jpg" alt="The Power of Self-Confidence">
+  </div>
+  <div class="badge">Career</div>
+  <h3>The Power of Self-Confidence</h3>
+  <p>By Brian Tracy</p>
+  <div class="price">₹319</div>
+  <a href="https://amzn.to/4ex8ZKe" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="dale-carnegie" data-category="communication" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71MS3yfSx3L.jpg" alt="Public Speaking for Success">
+  </div>
+  <div class="badge">Communication</div>
+  <h3>Public Speaking for Success</h3>
+  <p>By Dale Carnegie</p>
+  <div class="price">₹289</div>
+  <a href="https://amzn.to/4csMkQJ" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="colleen-hoover" data-category="romance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/91JwuZkIHJL._UF1000,1000_QL80_.jpg" alt="Maybe Someday">
+  </div>
+  <div class="badge">Romance</div>
+  <h3>Maybe Someday</h3>
+  <p>By Colleen Hoover</p>
+  <div class="price">₹299</div>
+  <a href="https://amzn.to/3Vi4CSr" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="robert-kiyosaki" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81t0uJYa7VL._UF1000,1000_QL80_.jpg" alt="Cashflow Quadrant">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>Cashflow Quadrant</h3>
+  <p>By Robert Kiyosaki</p>
+  <div class="price">₹389</div>
+  <a href="https://amzn.to/3Vyokb9" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="mark-manson" data-category="personal-growth" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61vQfbje2DL._UF1000,1000_QL80_.jpg" alt="Models: Attract Women Through Honesty">
+  </div>
+  <div class="badge">Personal Growth</div>
+  <h3>Models</h3>
+  <p>By Mark Manson</p>
+  <div class="price">₹419</div>
+  <a href="https://amzn.to/3VxPfVX" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="robin-sharma" data-category="motivation" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61iZZwmXtqL._UF1000,1000_QL80_.jpg" alt="MegaLiving! 30 Days to a Perfect Life">
+  </div>
+  <div class="badge">Motivation</div>
+  <h3>MegaLiving!</h3>
+  <p>By Robin Sharma</p>
+  <div class="price">₹369</div>
+  <a href="https://amzn.to/3VAMY2u" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="napoleon-hill" data-category="success" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71wyEb6M58L._UF1000,1000_QL80_.jpg" alt="Your Right to Be Rich">
+  </div>
+  <div class="badge">Success</div>
+  <h3>Your Right to Be Rich</h3>
+  <p>By Napoleon Hill</p>
+  <div class="price">₹259</div>
+  <a href="https://amzn.to/3xK2j41" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="stephen-covey" data-category="time-management" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71Bsa70hMbL._UF1000,1000_QL80_.jpg" alt="First Things First">
+  </div>
+  <div class="badge">Time Management</div>
+  <h3>First Things First</h3>
+  <p>By Stephen Covey</p>
+  <div class="price">₹379</div>
+  <a href="https://amzn.to/3VvUp4W" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="brian-tracy" data-category="success" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81IOIPrD6KL._UF1000,1000_QL80_.jpg" alt="Goals! How to Get Everything You Want">
+  </div>
+  <div class="badge">Success</div>
+  <h3>Goals!</h3>
+  <p>By Brian Tracy</p>
+  <div class="price">₹335</div>
+  <a href="https://amzn.to/4cIJzbi" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="dale-carnegie" data-category="communication" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71VC5PuasEL._UF1000,1000_QL80_.jpg" alt="The Art of Public Speaking">
+  </div>
+  <div class="badge">Communication</div>
+  <h3>The Art of Public Speaking</h3>
+  <p>By Dale Carnegie</p>
+  <div class="price">₹369</div>
+  <a href="https://amzn.to/4bVsv1A" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="colleen-hoover" data-category="romance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/91lYc1kV3PL.jpg" alt="Slammed">
+  </div>
+  <div class="badge">Romance</div>
+  <h3>Slammed</h3>
+  <p>By Colleen Hoover</p>
+  <div class="price">₹329</div>
+  <a href="https://amzn.to/4erAoPB" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="robert-kiyosaki" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/91b2pXJq-FL.jpg" alt="Why the Rich Are Getting Richer">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>Why the Rich Are Getting Richer</h3>
+  <p>By Robert Kiyosaki</p>
+  <div class="price">₹399</div>
+  <a href="https://amzn.to/4bYcmBQ" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="robin-sharma" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61V5r6TxZGL.jpg" alt="Little Black Book for Stunning Success">
+  </div>
+  <div class="badge">Self-Help</div>
+  <h3>Stunning Success</h3>
+  <p>By Robin Sharma</p>
+  <div class="price">₹199</div>
+  <a href="https://amzn.to/3xDqgUU" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="napoleon-hill" data-category="mindset" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/715LlDTO6jL._UF1000,1000_QL80_.jpg" alt="You Can Work Your Own Miracles">
+  </div>
+  <div class="badge">Mindset</div>
+  <h3>You Can Work Your Own Miracles</h3>
+  <p>By Napoleon Hill</p>
+  <div class="price">₹329</div>
+  <a href="https://amzn.to/3VwDPGv" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="stephen-covey" data-category="leadership" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81-KGKHn47S._UF1000,1000_QL80_.jpg" alt="Principle-Centered Leadership">
+  </div>
+  <div class="badge">Leadership</div>
+  <h3>Principle-Centered Leadership</h3>
+  <p>By Stephen Covey</p>
+  <div class="price">₹379</div>
+  <a href="https://amzn.to/3ROZmox" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="brian-tracy" data-category="career" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/716MM0ihOsL._UF1000,1000_QL80_.jpg" alt="Time Management">
+  </div>
+  <div class="badge">Career</div>
+  <h3>Time Management</h3>
+  <p>By Brian Tracy</p>
+  <div class="price">₹289</div>
+  <a href="https://amzn.to/3xycX7C" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="dale-carnegie" data-category="communication" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61zmO2jp-tL._UF1000,1000_QL80_.jpg" alt="Develop Self-Confidence, Improve Public Speaking">
+  </div>
+  <div class="badge">Communication</div>
+  <h3>Self-Confidence & Speaking</h3>
+  <p>By Dale Carnegie</p>
+  <div class="price">₹259</div>
+  <a href="https://amzn.to/4euUJ1h" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="colleen-hoover" data-category="romance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81XzdE9EV0L.jpg" alt="All Your Perfects">
+  </div>
+  <div class="badge">Romance</div>
+  <h3>All Your Perfects</h3>
+  <p>By Colleen Hoover</p>
+  <div class="price">₹289</div>
+  <a href="https://amzn.to/4bZy8dF" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="robert-kiyosaki" data-category="finance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71ulHLPzCVL._UF1000,1000_QL80_.jpg" alt="Second Chance">
+  </div>
+  <div class="badge">Finance</div>
+  <h3>Second Chance</h3>
+  <p>By Robert Kiyosaki</p>
+  <div class="price">₹379</div>
+  <a href="https://amzn.to/4eyftkF" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="robin-sharma" data-category="inspiration" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/815tOaVXmHL.jpg" alt="The Everyday Hero Manifesto">
+  </div>
+  <div class="badge">Inspiration</div>
+  <h3>Everyday Hero Manifesto</h3>
+  <p>By Robin Sharma</p>
+  <div class="price">₹419</div>
+  <a href="https://amzn.to/3VkHJfU" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="napoleon-hill" data-category="success" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81eMtJBOdcL._AC_UF1000,1000_QL80_.jpg" alt="Think Your Way to Wealth">
+  </div>
+  <div class="badge">Success</div>
+  <h3>Think Your Way to Wealth</h3>
+  <p>By Napoleon Hill</p>
+  <div class="price">₹289</div>
+  <a href="https://amzn.to/3Vn7wnY" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="stephen-covey" data-category="leadership" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71EAxYQAdSL._UF1000,1000_QL80_.jpg" alt="Everyday Greatness">
+  </div>
+  <div class="badge">Leadership</div>
+  <h3>Everyday Greatness</h3>
+  <p>By Stephen Covey</p>
+  <div class="price">₹389</div>
+  <a href="https://amzn.to/3VmIY7L" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="brian-tracy" data-category="productivity" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71xtWVW2wrL._UF1000,1000_QL80_.jpg" alt="Focal Point">
+  </div>
+  <div class="badge">Productivity</div>
+  <h3>Focal Point</h3>
+  <p>By Brian Tracy</p>
+  <div class="price">₹299</div>
+  <a href="https://amzn.to/3Vx3Ifx" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="dale-carnegie" data-category="self-help" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71YvD9DA+8L.jpg" alt="The Leader in You">
+  </div>
+  <div class="badge">Self-Help</div>
+  <h3>The Leader in You</h3>
+  <p>By Dale Carnegie</p>
+  <div class="price">₹279</div>
+  <a href="https://amzn.to/4euYbDY" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="colleen-hoover" data-category="romance" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/817PtRMofQL._UF1000,1000_QL80_.jpg" alt="Confess">
+  </div>
+  <div class="badge">Romance</div>
+  <h3>Confess</h3>
+  <p>By Colleen Hoover</p>
+  <div class="price">₹309</div>
+  <a href="https://amzn.to/4evEVzU" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="mark-douglas" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/91h1hHF7awL.jpg" alt="Trading in the Zone">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Trading in the Zone</h3>
+  <p>By Mark Douglas</p>
+  <div class="price">₹499</div>
+  <a href="https://amzn.to/3VYl1ZK" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="jesse-livermore" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/619CXiL6GfL._UF1000,1000_QL80_.jpg" alt="Reminiscences of a Stock Operator">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Reminiscences of a Stock Operator</h3>
+  <p>By Jesse Livermore</p>
+  <div class="price">₹389</div>
+  <a href="https://amzn.to/3VSYrJh" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="alexander-elder" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/518gpslTosL._UF1000,1000_QL80_.jpg" alt="Come Into My Trading Room">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Come Into My Trading Room</h3>
+  <p>By Alexander Elder</p>
+  <div class="price">₹599</div>
+  <a href="https://amzn.to/3zQh7V2" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="john-murphy" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81Wfg4mNPtL.jpg" alt="Technical Analysis of the Financial Markets">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Technical Analysis of the Financial Markets</h3>
+  <p>By John Murphy</p>
+  <div class="price">₹999</div>
+  <a href="https://amzn.to/3RTYQx4" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="steve-nison" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81qZNGZXNzL.jpg" alt="Japanese Candlestick Charting Techniques">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Japanese Candlestick Charting</h3>
+  <p>By Steve Nison</p>
+  <div class="price">₹749</div>
+  <a href="https://amzn.to/3xPmv7Q" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="van-tharp" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61fF5Z4iI7L.jpg" alt="Trade Your Way to Financial Freedom">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Trade Your Way to Financial Freedom</h3>
+  <p>By Van K. Tharp</p>
+  <div class="price">₹829</div>
+  <a href="https://amzn.to/4exiMTo" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="jack-schwager" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81BI5v5yBSL.jpg" alt="Market Wizards">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Market Wizards</h3>
+  <p>By Jack D. Schwager</p>
+  <div class="price">₹699</div>
+  <a href="https://amzn.to/3RRA3q9" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="nicholas-talbott" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/810v9l2bLkL.jpg" alt="The New Trading for a Living">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>The New Trading for a Living</h3>
+  <p>By Dr. Alexander Elder</p>
+  <div class="price">₹839</div>
+  <a href="https://amzn.to/3VjLZ5M" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="andrew-aziz" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61vMjzd+xPL._UF1000,1000_QL80_.jpg" alt="How to Day Trade for a Living">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>How to Day Trade for a Living</h3>
+  <p>By Andrew Aziz</p>
+  <div class="price">₹499</div>
+  <a href="https://amzn.to/3Vt5sEd" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="al-brooks" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61kFgPi-gPL._UF1000,1000_QL80_.jpg" alt="Reading Price Charts Bar by Bar">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Reading Price Charts Bar by Bar</h3>
+  <p>By Al Brooks</p>
+  <div class="price">₹889</div>
+  <a href="https://amzn.to/3Vk5oYg" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="tom-hougaard" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71Ip3kl9eML.jpg" alt="Best Loser Wins">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Best Loser Wins</h3>
+  <p>By Tom Hougaard</p>
+  <div class="price">₹599</div>
+  <a href="https://amzn.to/3Rpgh7r" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="larry-williams" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61ZkqtlPmdL.jpg" alt="Long-Term Secrets to Short-Term Trading">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Secrets to Short-Term Trading</h3>
+  <p>By Larry Williams</p>
+  <div class="price">₹699</div>
+  <a href="https://amzn.to/4cFqzEo" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="john-carter" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71mAbjVHAKL._UF1000,1000_QL80_.jpg" alt="Mastering the Trade">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Mastering the Trade</h3>
+  <p>By John F. Carter</p>
+  <div class="price">₹899</div>
+  <a href="https://amzn.to/3xTQd6O" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="bryce-gilmore" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/41RZ2RGRV8L._UF1000,1000_QL80_.jpg" alt="Geometry of Markets">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Geometry of Markets</h3>
+  <p>By Bryce Gilmore</p>
+  <div class="price">₹1149</div>
+  <a href="https://amzn.to/4cJNm5r" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="nassim-taleb" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71RoZkCMk1L.jpg" alt="Fooled by Randomness">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Fooled by Randomness</h3>
+  <p>By Nassim Nicholas Taleb</p>
+  <div class="price">₹459</div>
+  <a href="https://amzn.to/3xK2RZp" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="tony-oz" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/715j0-LgwbL._UF1000,1000_QL80_.jpg" alt="Stock Trading Wizard">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Stock Trading Wizard</h3>
+  <p>By Tony Oz</p>
+  <div class="price">₹789</div>
+  <a href="https://amzn.to/3xTqAV5" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="cmt-association" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71bVa5JnOmL._UF1000,1000_QL80_.jpg" alt="Technical Analysis: The Complete Resource">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Technical Analysis CMT Level 1</h3>
+  <p>By CMT Association</p>
+  <div class="price">₹1099</div>
+  <a href="https://amzn.to/4cCT29O" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="bennett-mccowen" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71p3ZpJ1R2L._UF1000,1000_QL80_.jpg" alt="The Art and Science of Technical Analysis">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>The Art & Science of Technical Analysis</h3>
+  <p>By Adam Grimes</p>
+  <div class="price">₹979</div>
+  <a href="https://amzn.to/4ctDL7c" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="sunil-gujjar" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://rukminim2.flixcart.com/image/850/1000/xif0q/regionalbooks/u/n/e/price-action-trading-technical-analysis-simplified-english-book-original-imagtnp2ycwmyzdj.jpeg?q=20&crop=false" alt="Price Action Trading">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Price Action Trading</h3>
+  <p>By Sunil Gujjar</p>
+  <div class="price">₹349</div>
+  <a href="https://amzn.to/3xV1uV0" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="gregory-zuckerman" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81ZmhjQI2LL.jpg" alt="The Man Who Solved the Market">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>The Man Who Solved the Market</h3>
+  <p>By Gregory Zuckerman</p>
+  <div class="price">₹549</div>
+  <a href="https://amzn.to/3VxzKYb" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="saurabh-mukherjea" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71+H5AuM4-L._UF1000,1000_QL80_.jpg" alt="Basics of Stock Market">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Basics of Stock Market</h3>
+  <p>By Saurabh Mukherjea</p>
+  <div class="price">₹259</div>
+  <a href="https://amzn.to/3RuT10e" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="ashwani-gujral" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/91uYslF9i3L._UF1000,1000_QL80_.jpg" alt="How to Make Money Trading with Charts">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Trading with Charts</h3>
+  <p>By Ashwani Gujral</p>
+  <div class="price">₹699</div>
+  <a href="https://amzn.to/3VzNmF6" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="vivek-bajaj" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/61zHdIGgaTL._UF1000,1000_QL80_.jpg" alt="Mind Markets and Money">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Mind Markets and Money</h3>
+  <p>By Vivek Bajaj</p>
+  <div class="price">₹349</div>
+  <a href="https://amzn.to/3VxZDAw" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="harriman" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://images-na.ssl-images-amazon.com/images/I/61tSEG4NckL._AC_UL210_SR210,210_.jpg" alt="The Heretics of Finance">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>The Heretics of Finance</h3>
+  <p>By Andrew W. Lo & Jasmina Hasanhodzic</p>
+  <div class="price">₹699</div>
+  <a href="https://amzn.to/3RT5YcB" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="mark-minervini" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/91IAKWLkZJL._UF1000,1000_QL80_.jpg" alt="Think & Trade Like a Champion">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Think & Trade Like a Champion</h3>
+  <p>By Mark Minervini</p>
+  <div class="price">₹879</div>
+  <a href="https://amzn.to/3Vw3cC0" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="steve-wards" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/51AZha+wYPL._UF1000,1000_QL80_.jpg" alt="Trader Mind">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Trader Mind</h3>
+  <p>By Steve Ward</p>
+  <div class="price">₹649</div>
+  <a href="https://amzn.to/4cs0F63" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="ray-dalio" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71-WJgHWC1L.jpg" alt="Principles for Dealing with the Changing World Order">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Changing World Order</h3>
+  <p>By Ray Dalio</p>
+  <div class="price">₹799</div>
+  <a href="https://amzn.to/3ViWsOJ" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="nicholas-talmage" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/71CSBnByHCL._AC_UF1000,1000_QL80_.jpg" alt="Options Trading Crash Course">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Options Trading Crash Course</h3>
+  <p>By Nathan Real</p>
+  <div class="price">₹379</div>
+  <a href="https://amzn.to/3RSvPAI" target="_blank">Buy Now</a>
+</div>
+
+<div class="book" data-author="dave-foxx" data-category="trading" data-aos="fade-up" data-aos-delay="100">
+  <div class="book-image-box">
+    <img src="https://m.media-amazon.com/images/I/81KQIGfeQpL._UF1000,1000_QL80_.jpg" alt="Stock Market Investing for Beginners">
+  </div>
+  <div class="badge">Trading</div>
+  <h3>Investing for Beginners</h3>
+  <p>By Dave Foxx</p>
+  <div class="price">₹299</div>
+  <a href="https://amzn.to/3VibawW" target="_blank">Buy Now</a>
+</div>
+
+  </div>
+</section>
+
+
+<!-- ========== Post Section ========== -->
+<section id="posts" class="posts-section">
+  <h2>📚 Book Posts & Picks</h2>
+  <div class="post-grid">
+
+    <div class="post">
+      <img src="images/book3.png" alt="Post 1">
+      <h3>Top 4 Mindset Books</h3>
+      <p>A quick list of must-read books to upgrade your mindset and habits.</p>
+    </div>
+
+    <!-- Add more posts like this -->
+</div>
+</section>
+
+
+<!-- ========== Summary  Section ========== -->
+<section id="book-summaries" class="summary-section">
+  <h2>🎥 Book Summaries</h2><br>
+  <div class="summary-grid">
+
+    <!-- 🔸 Summary 1 -->
+    <div class="summary-card">
+      <a href="https://youtu.be/Wld2pSTFh_M?si=arfU9s2YaGI3bpxk" target="_blank">
+        <img src="images/book8.jpg" alt="Atomic Habits Summary">
+      </a>
+      <h3>Atomic Habits</h3>
+      <p>Master your habits, master your life – in just 24 minutes.</p>
+    </div>
+
+<!-- 🔸 Summary 2 -->
+<div class="summary-card">
+  <a href="https://youtu.be/3TPyoIzMEZ8?si=GzxOg79iHkkfdgku" target="_blank">
+    <img src="images/book10.jpg" alt="The Psychology of Money Summary">
+  </a>
+  <h3>The Psychology of Money</h3>
+  <p>Understand how money really works – and how to think like the wealthy.</p>
+</div>
+
+    <!-- Add more summaries here -->
+
+  </div>
+</section>
+
+
+<section id="About The Founder" style="padding: 60px 20px; background-color: #f9f9f9; text-align: center;">
+  <h2>About The Founder</h2>
+
+
+  <img src="https://yt3.googleusercontent.com/WpuyNdryPVifX6Vzr7_IW8kRMs-n2B4pf6OMWVzxel9sAZPop8yYm8e1RSTeGVnmwgnSp3DSOxY=s900-c-k-c0x00ffffff-no-rj" style="width: 150px; height: 150px; border-radius: 50%; margin-top: 20px;">
+
+  
+  <p style="max-width: 700px; margin: 0 auto; font-size: 18px; line-height: 1.8; color: #444;">
+    Hello and welcome!<br><br>
+    I’m <strong>Vedant Suresh Ichake</strong>, and I’m 17 years old. I’ve always loved reading — books have helped me learn, grow, and explore ideas I never imagined. 📚<br><br>
+    I truly believe that <em>books are one of the greatest sources of knowledge</em>, and I want to share that knowledge with others like you. That’s why I created this website — a place where all types of books come together in one easy-to-use space.<br><br>
+    Whether you're into self-growth, finance, mindset, or just looking for your next great read, I hope this site helps you find it.<br><br>
+    Thank you for visiting and being part of this journey. I’m excited to grow this community with you.
+  </p>
+
+  <div style="margin-top: 40px;">
+    <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">With gratitude,</p>
+    <p style="font-size: 20px; font-weight: bold;">Vedant Suresh Ichake</p>
+    <p style="font-size: 16px;">Founder</p>
+   
+  </div>
+</section>
+</section>
+
+
+<!-- ========== Contact Section ========== --> 
+<section id="contact" class="contact-section">
+  <h2>📬 Connect With Me</h2>
+  <p>Have questions or book suggestions? Reach out to me anytime!</p>
+
+  <div class="contact-links">
+    <a href="mailto: ichakevedant449@gmail.com" target="_blank">📧 Email</a>
+    <a href="https://www.instagram.com/iamvichake" target="_blank">📸 Instagram</a>
+    <a href="https://twitter.com/iamvichake" target="_blank">🐦 Twitter</a>
+  </div>
+</section>
+
+<!-- ✅ CATEGORY FILTERING SCRIPT -->
+<!-- ✅ CATEGORY + AUTHOR FILTER SCRIPT WITH AOS -->
+<script>
+  const categoryButtons = document.querySelectorAll('.category-buttons button');
+  const books = document.querySelectorAll('.book');
+
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const selectedCategory = button.getAttribute('data-category');
+
+      books.forEach(book => {
+        const bookCategory = book.getAttribute('data-category');
+
+        if (selectedCategory === 'all' || bookCategory === selectedCategory) {
+          book.style.display = "flex";
+        } else {
+          book.style.display = "none";
+        }
+      });
+
+      // Update active category
+      categoryButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // ✅ Re-initialize AOS animations after filtering
+      AOS.refresh();
+    });
+  });
+</script>
+
+
+
+
+<!-- ========== author Script ========== --> 
+<!-- ✅ AUTHOR FILTER SCRIPT (WORKING) -->
+<script>
+  // Author image click filter
+  document.querySelectorAll('.author-img').forEach(authorImg => {
+    authorImg.addEventListener('click', () => {
+      const selectedAuthor = authorImg.getAttribute('data-author');
+      const books = document.querySelectorAll('.book');
+
+      books.forEach(book => {
+        const bookAuthor = book.getAttribute('data-author');
+        if (bookAuthor === selectedAuthor) {
+          book.style.display = "flex"; // Show
+        } else {
+          book.style.display = "none"; // Hide
+        }
+      });
+
+      // Refresh AOS animation
+      if (typeof AOS !== 'undefined') {
+        AOS.refreshHard();
+      }
+    });
+  });
+
+  // Show All button logic
+  const showAllBtn = document.getElementById('show-all-books');
+  showAllBtn.addEventListener('click', () => {
+    const books = document.querySelectorAll('.book');
+    books.forEach(book => {
+      book.style.display = "flex"; // Restore all books
+    });
+
+    // Refresh AOS animation again
+    if (typeof AOS !== 'undefined') {
+      AOS.refreshHard();
+    }
+  });
+</script>
+
+
+
+
+<!-- ========== Search Script ========== --> 
+<script>
+  const searchInput = document.getElementById("book-search");
+  const suggestionsBox = document.getElementById("search-suggestions");
+  const allBooks = document.querySelectorAll(".book");
+
+  const bookData = Array.from(allBooks).map(book => ({
+    title: book.querySelector("h3").textContent.toLowerCase(),
+    author: book.querySelector("p")?.textContent.toLowerCase() || "",
+    category: book.getAttribute("data-category") || "",
+    element: book
+  }));
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase().trim();
+    suggestionsBox.innerHTML = "";
+
+    if (query.length === 0) {
+      suggestionsBox.style.display = "none";
+      allBooks.forEach(book => book.style.display = "block");
+      return;
+    }
+
+    const matches = bookData.filter(book =>
+      book.title.includes(query) ||
+      book.author.includes(query) ||
+      book.category.includes(query)
+    );
+
+    matches.forEach(match => {
+      const li = document.createElement("li");
+      li.textContent = match.title;
+      li.addEventListener("click", () => {
+        searchInput.value = match.title;
+        suggestionsBox.style.display = "none";
+
+        allBooks.forEach(book => {
+          book.style.display = (book === match.element) ? "block" : "none";
+        });
+      });
+      suggestionsBox.appendChild(li);
+    });
+
+    suggestionsBox.style.display = matches.length ? "block" : "none";
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".search-bar")) {
+      suggestionsBox.style.display = "none";
+    }
+  });
+</script>
+
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 600,        // Animation duration (ms)
+    once: false,          // Animate every time you scroll
+    mirror: true          // Animate out while scrolling up
+  });
+</script>
+
+
+<!-- Back to Top Button -->
+<button id="backToTop" title="Go to top">↑</button>
+
+<!-- Back to Top Button Script -->
+<script>
+  const backToTopButton = document.getElementById("backToTop");
+
+  // Show button when scrolling down
+  window.onscroll = function () {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      backToTopButton.style.display = "block";
+    } else {
+      backToTopButton.style.display = "none";
+    }
+  };
+
+  // Scroll to top smoothly
+  backToTopButton.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+
+
+</body>
+</html>
